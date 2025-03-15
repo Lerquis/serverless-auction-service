@@ -1,0 +1,30 @@
+AuctionsBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: ${self:custom.AuctionsBucket.name}
+    PublicAccessBlockConfiguration:
+      BlockPublicAcls: false
+    OwnershipControls:
+      Rules:
+        - ObjectOwnership: ObjectWriter
+    #? Propiedad para configurar el ciclo de vida de los archivos (se eliminan despues de 1 dia)
+    LifecycleConfiguration:
+      Rules:
+        - Id: ExpirePictures
+          Status: Enabled
+          ExpirationInDays: 1
+
+AuctionsBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  Properties:
+    Bucket: !Ref AuctionsBucket
+    #? Permitimos que cualquier persona pueda leer los archivos de nuestro bucket
+    PolicyDocument:
+      Statement:
+        - Sid: PublicRead
+          Effect: Allow
+          Principal: "*"
+          Action:
+            - s3:GetObject
+          #? El /* es para que pueda leer cualquier archivo dentro del bucket
+          Resource: arn:aws:s3:::${self:custom.AuctionsBucket.name}/*

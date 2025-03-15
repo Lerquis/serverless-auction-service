@@ -1,0 +1,16 @@
+AuctionsTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:UpdateItem
+    - dynamodb:Query
+  Resource:
+    - ${self:custom.AuctionsTable.arn}
+    #? Al realizar querys, se crea una tabla virtual, por lo que es necesario agregar el arn de la tabla en el recurso.
+    #? Ademas el ultimo valor, es el nombre que se le dio a nuestro GlobalSecondaryIndex
+    - !Join [
+        "/",
+        ["${self:custom.AuctionsTable.arn}", "index", "statusAndEndDate"],
+      ]

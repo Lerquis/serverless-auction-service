@@ -1,5 +1,6 @@
 {
   "name": "sls-base",
+  "type": "module",
   "version": "1.0.0",
   "description": "Codingly template for Serverless Framework projects",
   "author": "Ariel Weinberger <ariel@codingly.io>",
@@ -15,6 +16,14 @@
     "webpack": "^4.35.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.639.0"
+    "@middy/core": "^6.1.5",
+    "@middy/http-cors": "^6.1.5",
+    "@middy/http-error-handler": "^6.1.5",
+    "@middy/http-event-normalizer": "^6.1.5",
+    "@middy/http-json-body-parser": "^6.1.5",
+    "@middy/validator": "^6.1.5",
+    "aws-sdk": "^2.639.0",
+    "http-errors": "^2.0.0",
+    "uuid": "^11.1.0"
   }
 }
